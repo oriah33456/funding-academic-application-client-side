@@ -1,0 +1,93 @@
+<div class="search-div">
+  <button mat-raised-button (click)="onCreate()" *ngIf="!isAdmin">
+    <mat-icon>add</mat-icon> Create
+  </button>
+  <mat-form-field class="search-form-field" floatLabel="never">
+    <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+    <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+       <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
+<div class="mat-elevation-z8">
+  
+  <mat-table  [dataSource]="listData"  >
+    <ng-container matColumnDef="ProjectID">
+      <mat-header-cell *matHeaderCellDef >Project ID</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.id}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="ProjectName">
+      <mat-header-cell *matHeaderCellDef  >Project Name</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.projectName}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Requester">
+      <mat-header-cell *matHeaderCellDef >Requester</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.requester}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Status">
+      <mat-header-cell *matHeaderCellDef  >Status</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.status}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="AcademicInstitution">
+      <mat-header-cell *matHeaderCellDef  >Acaademic Institute</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.academicInstitution}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="AcademicAdvisor">
+      <mat-header-cell *matHeaderCellDef  >Academic Advisor</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.academicAdvisor}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="IsSensetive">
+      <mat-header-cell *matHeaderCellDef >Sensitive Info</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.isSensetive}}</mat-cell>
+    </ng-container>
+
+
+
+    <ng-container matColumnDef="StartDate">
+      <mat-header-cell *matHeaderCellDef >Project Start Date</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.startDate |  date:'shortDate' }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="EndDate">
+      <mat-header-cell *matHeaderCellDef >Project End Date</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.endDate |  date:'shortDate'}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <div>
+        <button *ngIf="!isAdmin" mat-icon-button (click)="onEdit(row
+        )" ><mat-icon>edit</mat-icon></button>
+
+        <button mat-icon-button (click)="onEdit(row)" *ngIf="isAdmin"><mat-icon>remove_red_eye</mat-icon></button>
+        <button  mat-icon-button color="warn" [disabled]="!showDeleteIcon(row)" (click)="onDelete(row)"><mat-icon>delete_outline</mat-icon></button>
+      </div>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="loading">
+      <mat-footer-cell *matFooterCellDef colspan="6">
+        Loading data...
+      </mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="noData">
+      <mat-footer-cell *matFooterCellDef colspan="6">
+        No data.
+      </mat-footer-cell>
+    </ng-container>
+
+     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+     <mat-row *matRowDef="let row; columns:displayedColumns;"></mat-row>
+     <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':listData!=null}"></mat-footer-row>
+     <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(listData!=null && listData.data.length==0)}"></mat-footer-row>
+
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[5,10,20]" [pageSize]="20" showFirstLastButtons></mat-paginator>
+</div>
+
+

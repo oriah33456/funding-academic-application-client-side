@@ -1,0 +1,30 @@
+<div>
+
+  <form #f="ngForm" >
+  <div class="content-container">
+    <mat-icon id="close-icon" (click)="closeDialog()"  [mat-dialog-close]="false">close</mat-icon>
+
+    <div class="inner-dialog">
+      <mat-label>Justification: </mat-label>
+      <textarea
+        [(ngModel)]="justification"
+
+        matInput
+        rows="9"
+        cols="50"
+        maxlength="250"
+
+        ngModel
+        name="justificationInput"
+      >
+      </textarea>
+    </div>
+
+
+</div>
+  <button mat-flat-button id="no-button" [mat-dialog-close]="false">
+    Cancel
+  </button>
+  <button  type="submit" [disabled]="!onSubmit(f)"   mat-flat-button id="yes-button" [mat-dialog-close]="true" >OK</button>
+</form>
+</div>

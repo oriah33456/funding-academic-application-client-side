@@ -1,0 +1,58 @@
+<mat-card>
+  <mat-card-content>
+    <div class="header">
+        <h2>LOGIN</h2>
+    </div>
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()" name="loginForm" >
+      <div class="email-input">
+          <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Email</mat-label>
+              <input
+              matInput
+              formControlName="email"
+              required/>
+              <mat-error *ngIf="loginForm.get('email').errors?.required">
+                Requried email
+              </mat-error>
+
+          </mat-form-field>
+      </div>
+      <div>
+        <br>
+        <mat-form-field  hintLabel="Should be at least 6 characters long." class="full-width" appearance="outline">
+            <mat-label>Password</mat-label>
+             <input
+              formControlName="password"
+              matInput
+              [type]="hide ? 'password': 'text' "
+              required
+              #pwInput
+             />
+
+             <button
+              mat-icon-button
+              matSuffix
+              (click)="hide= !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+
+            <mat-error *ngIf="loginForm.get('password').errors?.required">
+                Required password
+            </mat-error>
+            <mat-hint id=checkLine align="end" > {{pwInput.value?.length}}/6</mat-hint>
+        </mat-form-field>
+      </div>
+      <br>
+      <div class="IdentificationButtons">
+      <button  mat-flat-button color="primary" [disabled]="!loginForm.valid" type="submit">Login</button>
+      <button mat-button routerLink="/users/register" class="divider" type="button">Register</button>
+    </div>
+
+      <div id=InvalidUserDetails  class="alert alert-danger" role="alert" *ngIf="areCredentialsInvalid">
+        Invalid user or password
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

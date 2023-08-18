@@ -1,0 +1,229 @@
+<section id="container">
+  <mat-toolbar class="title">
+    <button
+      class="btn-dialog-close"
+      mat-stroked-button
+      (click)="onClose()"
+      tabindex="-1"
+    >
+      <mat-icon>clear</mat-icon>
+    </button>
+    <span class="fill-remaining-space"></span>
+
+    <span  class="pointer">{{editMode? "Edit Request":"New Request"}}</span>
+
+  </mat-toolbar>
+
+  <form
+    [formGroup]="form"
+    class="normal-form"
+    (submit)="onSubmit()"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+  
+  >
+
+
+    <div class="controles-container" id="controles-container1">
+      <mat-form-field class="title-bold">
+        <input
+          type="text"
+          matInput
+          placeholder="User ID"
+          id="userID"
+          formControlName="userID"
+          class="title-bold"
+
+        />
+        <mat-error>Field must not be empty. </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="title-bold">
+        <input
+          type="text"
+          matInput
+          placeholder="Full Name"
+          id="requester"
+          class="title-bold"
+          formControlName="requester"
+        />
+        <mat-error>Field must not be empty. </mat-error>
+      </mat-form-field>
+
+      <mat-form-field >
+        <input
+          type="text"
+          matInput
+          placeholder="Project Name"
+          id="projectName"
+          formControlName="projectName"
+          (keydown.space)="$event.preventDefault();"
+        />
+        <mat-error>Field must not be empty. </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          type="text"
+          matInput
+          placeholder="Academic Institution"
+          maxlength="100"
+          id="academicInstitution"
+          formControlName="academicInstitution"
+          (keydown.space)="$event.preventDefault();"
+        />
+        <mat-error>Field must not be empty. </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          type="text"
+          matInput
+          placeholder="Academic Advisor"
+          maxlength="100"
+          id="academicAdvisor"
+          formControlName="academicAdvisor"
+          (keydown.space)="$event.preventDefault();"
+        />
+        <mat-error>Field must not be empty. </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <textarea
+          matInput
+          placeholder="Description"
+          rows="1"
+          cols="50"
+          maxlength="500"
+          id="description"
+          formControlName="description"
+          (keydown.space)="$event.preventDefault();"
+        >
+        </textarea>
+        <mat-error>Field must not be empty. </mat-error>
+      </mat-form-field>
+
+      <div class="add-bottom-padding">
+        <mat-checkbox
+          #ref
+          (click)="onClickSensetive()"
+          id="isSensetive"
+          formControlName="isSensetive"
+          color="primary"
+        >
+          Will the project contain sensitive information?
+        </mat-checkbox>
+      </div>
+
+      <mat-form-field *ngIf="isSensetiveFlag">
+        <textarea
+          matInput
+          placeholder="Please provide the detail about sensitive information in the project"
+          rows="1"
+          cols="50"
+          maxlength="500"
+          id="sensetiveInfo"
+          formControlName="sensetiveInfo"
+          (keydown.space)="$event.preventDefault();"
+        >
+        </textarea>
+        <mat-error>Field must not be empty. </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          formControlName="startDate"
+          matInput
+          [matDatepicker]="startDatePicker"
+          id="startDate"
+          placeholder="Project start date"
+          (keydown.space)="$event.preventDefault();"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="startDatePicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #startDatePicker></mat-datepicker>
+        <mat-error>Field must not be empty. </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          formControlName="endDate"
+          matInput
+          [matDatepicker]="endDatePicker"
+          id="endDate"
+          placeholder="Project end date"
+          (keydown.space)="$event.preventDefault();"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="endDatePicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #endDatePicker></mat-datepicker>
+        <mat-error>Field must not be empty. </mat-error>
+      </mat-form-field>
+    </div>
+    <!-- </mat-grid-tile> -->
+    <!-- <mat-grid-tile> -->
+
+    <div class="controles-container" id="controles-container2">
+      <div class="add-bottom-padding">
+        <mat-form-field>
+          <mat-select
+            formControlName="product"
+            matInput
+            id="product"
+            class="product-potentail"
+            placeholder="Potential product from the project"
+          >
+            <ng-container
+              *ngFor="
+                let potential of potentialProductsService.potentialProductOption " >
+              <mat-option value="{{ potential.value }}">{{
+                potential.viewValue
+              }}</mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- On Click Request status: New Only visible to User -->
+      <div class="button-row">
+        <button
+        type="submit"
+        mat-raised-button
+        color="primary"
+        id="subButton"
+        *ngIf=!isAdmin
+        [disabled]="!form.valid">
+          Submit
+        </button>
+
+        <!-- On Click Request status: Approved Only visible to Admin when request status is New -->
+
+        <button
+          type="submit"
+          mat-raised-button
+          color="primary"
+          id="approveButton"
+          *ngIf=isAdmin
+          (click)="onApprove()"
+        >
+          Approve
+        </button>
+
+        <button
+          type="button"
+          mat-raised-button
+          color="warn"
+          id="clearButton"
+          *ngIf="!isAdmin"
+          (click)="onClear()"
+        >
+          Clear
+        </button>
+      </div>
+    </div>
+  </form>
+</section>

@@ -1,0 +1,118 @@
+/* mat-form-field{
+  width: 300px;
+}
+.controles-container{
+  width: 100%;
+  padding: 15%;
+}
+
+
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(-300%, 0%);
+
+  position:  ;
+  top: 0;
+  right: 0;
+  transform: translate(-300%, 0%);
+}
+
+
+ */
+
+ mat-toolbar.title {
+  display: flex;
+  flex-direction: row;
+}
+.pointer {
+  cursor: pointer;
+}
+
+/* mat-form-field {
+  width: 300px;
+  height: 110px;
+  margin: 0 15px 10px 0;
+} */
+
+mat-form-field {
+  width: 45%;
+  min-width: 200px;
+  height: 110px;
+  min-width: 300px;
+}
+/**/
+/* .controles-container {
+  // width: 300px;
+  display: flex;
+  flex-direction: row;
+  max-width: 650px;
+  flex-wrap: wrap;
+} */
+/**/
+
+.controles-container {
+  // width: 300px;
+  display: flex;
+  flex-direction: row;
+  max-width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+#controles-container2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+form.normal-form {
+  margin: 10px;
+}
+
+.button-row button {
+  margin: 5px;
+}
+
+.btn-dialog-close {
+  margin-right: 20vw;
+}
+
+#searchName  button{
+  margin:5px;
+  margin-top: 10px !important;
+  margin-right: 5px;
+
+}
+.title-bold {
+  font-weight: 1000;
+}
+
+.errorUserId{
+  color: red;
+}
+
+b#fullNameSearch {
+  padding: -1px;
+  display: table-cell;
+  line-height: 1.3em;
+}
+
+mat-label#fullName {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+#container .disInput{
+
+  /* display: grid; */
+  flex-basis: 86%;
+  padding: 10%;
+  display: grid;
+  width: min-content;
+  place-items: flex-start;
+
+
+}

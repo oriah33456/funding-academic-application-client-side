@@ -1,0 +1,94 @@
+<section id="container">
+  <mat-toolbar class="title">
+    <button
+    class="btn-dialog-close"
+    mat-stroked-button
+    (click)="onClose()"
+    tabindex="-1"
+    >
+    <mat-icon>clear</mat-icon>
+   </button>
+   <span class="fill-remaining-space"></span>
+
+   <span  class="pointer"> Add new admin</span>
+
+
+
+  </mat-toolbar>
+
+  <form
+    [formGroup]="adminForm"
+    class="normal-form"
+    (submit)="onSubmit()"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+  >
+    <div class="controles-container">
+      <mat-form-field   class="disInput">
+        <input
+
+          type="text"
+          matInput
+          placeholder="User ID"
+          id="userId"
+          formControlName="userId"
+          [(ngModel)]="userId"
+          (keydown.space)="$event.preventDefault();"
+        />
+        <mat-error >Field must not be empty. </mat-error>
+
+        <div *ngIf="showError" class="errorUserId">The user Id you entered is invalid.</div>
+        <div *ngIf="checkIfAdmin" class="errorUserId">The user Id you entered is already admin.</div>
+      </mat-form-field>
+      <mat-label class="disInput"   type="text" id="fullName" *ngIf="displayFullName">
+       Full Name: <strong id="fullNameSearch"> {{ fullNameSearch }}</strong>
+
+      </mat-label>
+    </div>
+
+    <button
+      (click)="onSearchByUserId()"
+      type="button"
+      mat-raised-button
+      color="primary"
+      id="searchName"
+    >
+      <mat-icon>search</mat-icon> search by User ID
+    </button>
+
+    <div class="button-row">
+      <button
+        type="submit"
+        mat-raised-button
+        color="primary"
+        id="subButton"
+        [disabled]="!legal"
+      >
+        OK
+      </button>
+
+      <!-- On Click Request status: Approved Only visible to Admin when request status is New -->
+
+      <button
+        (click)="onClose()"
+        type="button"
+        mat-raised-button
+        color="primary"
+        id="approveButton"
+      >
+        Cancel
+      </button>
+
+      <button
+        type="button"
+        mat-raised-button
+        color="warn"
+        id="clearButton"
+        (click)="onClear()"
+      >
+        Clear
+      </button>
+    </div>
+  </form>
+</section>
+
